@@ -1,0 +1,54 @@
+def DialingProgram(Length=0,LowerCaseLettersUse=0,UpperCaseLettersUse=0,SpecialCharactersUse=0,NumericCharactersUse=0,UserInputCharactersUse=[]):
+    LCLU=LowerCaseLettersUse
+    UCLU=UpperCaseLettersUse
+    SCU=SpecialCharactersUse
+    NCU=NumericCharactersUse
+    UICU=UserInputCharactersUse
+    FCLU=FinalCharacterListUse=[]
+    LLC=LettersLowerCase=['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+    LUC=LeteersUpperCase=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    SC=SpecialCharacters=['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '{', '}', '|', ':', '"', '<', '>', '?', ',', '.', '/', ';', "'", '[', ']', '\\', '=', '-']
+    NC=NumercicCharacters=['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+    if LCLU==1:
+        for C in LLC:
+            FCLU.append(C)
+    if UCLU==1:
+        for C in LUC:
+            FCLU.append(C)
+    if SCU==1:
+        for C in SC:
+            FCLU.append(C) 
+    if NCU==1:
+        for C in NC:
+            FCLU.append(C)
+    if UICU!=None:
+        if len(UICU)>0:
+            for C in UICU:
+                FCLU.append(str(C)) 
+    CL=0
+    die=0
+    FLO=FinalListOutput=[]
+    L=len(FCLU)
+    RDL=RotatingDialingList=[0]
+    import time
+    TB=time.time()
+    while len(RDL)<Length+1:  
+        die+=1
+        LL=len(RDL)
+        for Item in range(0,LL):  
+            if RDL[Item]==L:
+                if Item!=LL-1:
+                    RDL[Item+1]+=1
+                if Item==LL-1:
+                    RDL.append(0)
+                RDL[Item]=0   
+        add=[]
+        for I in RDL:
+            add.append(FCLU[I])
+        FLO.append(add)
+        RDL[0]+=1
+    TA=time.time()    
+    return FLO, ("It Took"+" "+str(int(TA-TB))+" seconds to calculate"), "# of combinations created is: ", len(FLO)
+
+Dialed=DialingProgram(3,1,1,1,1,None)
+print(Dialed)
